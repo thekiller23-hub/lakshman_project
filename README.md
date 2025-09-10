@@ -1,6 +1,6 @@
 # Finance Guide
 
-Finance Guide is a web application designed to assist users with personal finance management. The application provides a chat interface where users can interact with a virtual assistant to get guidance on investments, savings, and financial planning.
+Finance Guide is a web application designed to assist users with personal finance management. The application provides a chat interface where users can interact with a virtual assistant to get guidance on investments, savings, and financial plan.
 
 ## Features
 
