@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to FineTalks - Smart Finance Assistant</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .welcome-page {
+            width: 100%;
+            max-width: 600px;
+            position: relative;
+        }
+        
+        .welcome-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .welcome-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .welcome-logo .logo {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            color: white;
+            box-shadow: 0 6px 24px rgba(34, 197, 94, 0.3);
+        }
+        
+        .welcome-title {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #22c55e, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+        
+        .welcome-subtitle {
+            font-size: 1rem;
+            color: #94a3b8;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            color: #e2e8f0;
+            font-weight: 500;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #22c55e;
+            box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+        }
+        
+        .form-group input::placeholder {
+            color: #94a3b8;
+        }
+        
+        .form-group select {
+            cursor: pointer;
+        }
+        
+        .form-group select option {
+            background: #1e293b;
+            color: white;
+        }
+        
+        .goals-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 8px;
+        }
+        
+        .goal-option {
+            display: flex;
+            align-items: center;
+            padding: 10px 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .goal-option:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .goal-option.selected {
+            background: rgba(34, 197, 94, 0.2);
+            border-color: #22c55e;
+            color: #22c55e;
+        }
+        
+        .goal-option input[type="checkbox"] {
+            margin-right: 8px;
+            width: auto;
+        }
+        
+        .start-chat-btn {
+            width: 100%;
+            padding: 14px 20px;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 24px rgba(34, 197, 94, 0.3);
+            margin-top: 10px;
+        }
+        
+        .start-chat-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(34, 197, 94, 0.4);
+        }
+        
+        .start-chat-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .floating-element {
+            position: absolute;
+            color: rgba(34, 197, 94, 0.1);
+            font-size: 1.8rem;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .floating-element:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+        .floating-element:nth-child(2) { top: 20%; right: 15%; animation-delay: 2s; }
+        .floating-element:nth-child(3) { bottom: 30%; left: 20%; animation-delay: 4s; }
+        .floating-element:nth-child(4) { bottom: 20%; right: 25%; animation-delay: 1s; }
+        .floating-element:nth-child(5) { top: 50%; left: 5%; animation-delay: 3s; }
+        .floating-element:nth-child(6) { top: 60%; right: 10%; animation-delay: 5s; }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        .error-message {
+            color: #ef4444;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+            
+            .goals-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .welcome-container {
+                padding: 20px;
+            }
+            
+            .welcome-title {
+                font-size: 1.8rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .welcome-container {
+                padding: 15px;
+            }
+            
+            .welcome-title {
+                font-size: 1.6rem;
+            }
+            
+            .welcome-subtitle {
+                font-size: 0.9rem;
+            }
+            
+            .form-group input,
+            .form-group select {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+            }
+            
+            .goal-option {
+                padding: 8px 10px;
+                font-size: 0.85rem;
+            }
+            
+            .start-chat-btn {
+                padding: 12px 16px;
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="welcome-page">
+        <!-- Floating elements for visual appeal -->
+        <div class="floating-elements">
+            <i class="fas fa-coins floating-element"></i>
+            <i class="fas fa-chart-line floating-element"></i>
+            <i class="fas fa-piggy-bank floating-element"></i>
+            <i class="fas fa-dollar-sign floating-element"></i>
+            <i class="fas fa-hand-holding-dollar floating-element"></i>
+            <i class="fas fa-calculator floating-element"></i>
+        </div>
+        
+        <!-- Main content container -->
+        <div class="welcome-container">
+            <!-- Logo -->
+            <div class="welcome-logo">
+                <div class="logo">FT</div>
+            </div>
+            
+            <!-- Title and subtitle -->
+            <h1 class="welcome-title">Welcome to FineTalks!</h1>
+            <p class="welcome-subtitle">To provide better financial guidance, please share some details:</p>
+            
+            <!-- User Details Form -->
+            <form id="userDetailsForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="userName">Your Name</label>
+                        <input type="text" id="userName" name="userName" placeholder="Enter your full name" required>
+                        <div class="error-message" id="nameError">Please enter your name</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="age">Age</label>
+                        <input type="number" id="age" name="age" placeholder="Enter your age" min="18" max="100" required>
+                        <div class="error-message" id="ageError">Please enter a valid age (18-100)</div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="income">Monthly Income (₹)</label>
+                    <input type="number" id="income" name="income" placeholder="Enter your monthly income" min="0" required>
+                    <div class="error-message" id="incomeError">Please enter your monthly income</div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Financial Goals</label>
+                    <div class="goals-container">
+                        <label class="goal-option">
+                            <input type="checkbox" name="goals" value="savings">
+                            <span>Build Savings</span>
+                        </label>
+                        <label class="goal-option">
+                            <input type="checkbox" name="goals" value="investment">
+                            <span>Start Investing</span>
+                        </label>
+                        <label class="goal-option">
+                            <input type="checkbox" name="goals" value="tax">
+                            <span>Tax Planning</span>
+                        </label>
+                        <label class="goal-option">
+                            <input type="checkbox" name="goals" value="retirement">
+                            <span>Plan Retirement</span>
+                        </label>
+                    </div>
+                    <div class="error-message" id="goalsError">Please select at least one financial goal</div>
+                </div>
+                
+                <button type="submit" class="start-chat-btn" id="startChatBtn">
+                    <i class="fas fa-comments"></i>
+                    Start Chat
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('userDetailsForm');
+            const startChatBtn = document.getElementById('startChatBtn');
+            const goalOptions = document.querySelectorAll('.goal-option');
+            
+            // Add visual feedback for goal selection
+            goalOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const checkbox = this.querySelector('input[type="checkbox"]');
+                    checkbox.checked = !checkbox.checked;
+                    
+                    if (checkbox.checked) {
+                        this.classList.add('selected');
+                    } else {
+                        this.classList.remove('selected');
+                    }
+                });
+            });
+            
+            // Form validation
+            function validateForm() {
+                let isValid = true;
+                
+                // Clear previous errors
+                document.querySelectorAll('.error-message').forEach(error => {
+                    error.style.display = 'none';
+                });
+                
+                // Validate name
+                const name = document.getElementById('userName').value.trim();
+                if (!name) {
+                    document.getElementById('nameError').style.display = 'block';
+                    isValid = false;
+                }
+                
+                // Validate age
+                const age = parseInt(document.getElementById('age').value);
+                if (!age || age < 18 || age > 100) {
+                    document.getElementById('ageError').style.display = 'block';
+                    isValid = false;
+                }
+                
+                // Validate income
+                const income = parseFloat(document.getElementById('income').value);
+                if (!income || income < 0) {
+                    document.getElementById('incomeError').style.display = 'block';
+                    isValid = false;
+                }
+                
+                // Validate goals
+                const selectedGoals = document.querySelectorAll('input[name="goals"]:checked');
+                if (selectedGoals.length === 0) {
+                    document.getElementById('goalsError').style.display = 'block';
+                    isValid = false;
+                }
+                
+                return isValid;
+            }
+            
+            // Form submission
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (validateForm()) {
+                    // Show loading state
+                    startChatBtn.disabled = true;
+                    startChatBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Starting Chat...';
+                    
+                    // Store user data (using in-memory storage for demo)
+                    const userData = {
+                        name: document.getElementById('userName').value.trim(),
+                        age: parseInt(document.getElementById('age').value),
+                        income: parseFloat(document.getElementById('income').value),
+                        goals: Array.from(document.querySelectorAll('input[name="goals"]:checked')).map(cb => cb.value),
+                        timestamp: new Date().toISOString()
+                    };
+                    
+                    // Store in memory (replace with actual storage solution)
+                    window.userData = userData;
+                    
+                    // Simulate loading delay for better UX
+                    setTimeout(() => {
+                        // Create a simple redirect message
+                        document.body.innerHTML = `
+                            <div style="display: flex; justify-content: center; align-items: center; min-height: 100vh; background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%); color: white; text-align: center;">
+                                <div>
+                                    <div style="font-size: 2rem; margin-bottom: 20px;">
+                                        <i class="fas fa-check-circle" style="color: #22c55e;"></i>
+                                    </div>
+                                    <h2 style="margin-bottom: 10px;">Welcome, ${userData.name}!</h2>
+                                    <p style="margin-bottom: 20px; color: #94a3b8;">Your profile has been set up successfully.</p>
+                                    <p style="color: #94a3b8; font-size: 0.9rem;">You can now proceed to the chat interface...</p>
+                                    <button onclick="window.location.href='chat.html'" style="
+                                        margin-top: 20px;
+                                        padding: 12px 24px;
+                                        background: linear-gradient(135deg, #22c55e, #16a34a);
+                                        color: white;
+                                        border: none;
+                                        border-radius: 8px;
+                                        font-weight: 600;
+                                        cursor: pointer;
+                                        transition: all 0.3s ease;
+                                    ">
+                                        <i class="fas fa-arrow-right"></i> Go to Chat
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                    }, 1500);
+                }
+            });
+            
+            // Real-time validation
+            document.getElementById('userName').addEventListener('input', function() {
+                if (this.value.trim()) {
+                    document.getElementById('nameError').style.display = 'none';
+                }
+            });
+            
+            document.getElementById('age').addEventListener('input', function() {
+                const age = parseInt(this.value);
+                if (age >= 18 && age <= 100) {
+                    document.getElementById('ageError').style.display = 'none';
+                }
+            });
+            
+            document.getElementById('income').addEventListener('input', function() {
+                const income = parseFloat(this.value);
+                if (income >= 0) {
+                    document.getElementById('incomeError').style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

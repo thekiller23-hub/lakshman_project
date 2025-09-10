@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta             <div class="app" role="application" aria-label="FineTalks Assistant">harset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>FineTalks - Smart Finance Assistant</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <div id="welcomeModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-logo">
+                    <div class="logo">FT</div>
+                </div>
+                <h2>Welcome to FineTalks!</h2>
+                <p>To provide better financial guidance, please share some details:</p>
+            </div>
+            
+            <form id="userDetailsForm">
+                <div class="form-group">
+                    <label for="userName">Your Name</label>
+                    <input type="text" id="userName" name="userName" placeholder="Enter your full name" required>
+                    <div class="error-message" id="nameError">Please enter your name</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input type="number" id="age" name="age" placeholder="Enter your age" min="18" max="100" required>
+                    <div class="error-message" id="ageError">Please enter a valid age (18-100)</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="income">Monthly Income (₹)</label>
+                    <input type="number" id="income" name="income" placeholder="Enter your monthly income" min="0" required>
+                    <div class="error-message" id="incomeError">Please enter your monthly income</div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Financial Goals</label>
+                    <div class="goals-container">
+                        <label class="goal-option">
+                            <input type="checkbox" name="goals" value="savings">
+                            <span>Build Savings</span>
+                        </label>
+                        <label class="goal-option">
+                            <input type="checkbox" name="goals" value="investment">
+                            <span>Start Investing</span>
+                        </label>
+                        <label class="goal-option">
+                            <input type="checkbox" name="goals" value="tax">
+                            <span>Tax Planning</span>
+                        </label>
+                        <label class="goal-option">
+                            <input type="checkbox" name="goals" value="retirement">
+                            <span>Plan Retirement</span>
+                        </label>
+                    </div>
+                    <div class="error-message" id="goalsError">Please select at least one financial goal</div>
+                </div>
+                
+                <button type="submit" class="submit-btn" id="startChatBtn">
+                    <i class="fas fa-comments"></i>
+                    Start Chat
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div id="app">
+        <div class="app" role="application" aria-label="FineTalks Assistant">
+            <aside class="panel">
+                <div class="brand">
+                    <div class="logo">FT</div>
+                    <div>
+                        <h1 class="logo-text">FineTalks</h1>
+                        <div class="subtitle">Smart Finance Assistant</div>
+                    </div>
+                </div>
+
+                <nav class="menu" aria-label="Navigation">
+                    <button onclick="window.location.href='welcome.html'"><i class="fas fa-home"></i> Home</button>
+                    <button class="active"><i class="fas fa-comments"></i> Chat</button>
+                    <button><i class="fas fa-chart-line"></i> Learn</button>
+                    <button><i class="fas fa-graduation-cap"></i> Resources</button>
+                </nav>
+                
+                <div class="floating-symbols">
+                    <i class="fas fa-piggy-bank symbol-primary"></i>
+                    <i class="fas fa-coins symbol-accent"></i>
+                    <i class="fas fa-chart-line symbol-primary"></i>
+                    <i class="fas fa-dollar-sign symbol-accent"></i>
+                    <i class="fas fa-hand-holding-dollar symbol-primary"></i>
+                </div>
+            </aside>
+
+            <main class="chat">
+                <header class="chat-header">
+                    <div class="chat-title">
+                        <i class="fas fa-robot"></i>
+                        <span>Finance Assistant</span>
+                    </div>
+                    <div class="chat-controls">
+                        <button class="search-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                        <button id="voiceToggle" class="voice-btn" title="Toggle Voice Assistant">
+                            <i class="fas fa-microphone"></i>
+                        </button>
+                        <button id="speakToggle" class="voice-btn" title="Toggle Text-to-Speech">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                        <button class="settings-btn">
+                            <i class="fas fa-cog"></i>
+                        </button>
+                    </div>
+                    <div class="status" id="statusText">AI Powered • Secure</div>
+                    <div class="voice-status" id="voiceStatus" style="display: none;">
+                        <i class="fas fa-microphone-alt"></i>
+                        <span>Listening...</span>
+                    </div>
+                </header>
+
+                <section class="conversation" id="chat">
+                    <!-- Messages will be added here -->
+                </section>
+
+                <div class="composer">
+                    <div class="input-container">
+                        <div class="input">
+                            <i class="fas fa-message"></i>
+                            <input id="userInput" type="text" placeholder="Ask about personal finance..." aria-label="Type a message">
+                            <button id="voiceInput" class="voice-btn">
+                                <i class="fas fa-microphone"></i>
+                                <span class="voice-status"></span>
+                            </button>
+                            <button class="emoji-btn">
+                                <i class="far fa-smile"></i>
+                            </button>
+                            <button class="attach-btn">
+                                <i class="fas fa-paperclip"></i>
+                            </button>
+                        </div>
+                        <button class="send-btn" id="sendBtn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Contact Button Container -->
+                <div class="contact-button-container">
+                    <button id="contactUsBtn" onclick="window.location.href='contact.html'">
+                        <i class="fas fa-envelope"></i>
+                        Contact Us
+                    </button>
+                </div>
+            </main>
+        </div>
+    </div>
+    <script src="assets/js/app.js"></script>
+    
+    <script>
+        // Welcome Modal JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('welcomeModal');
+            const form = document.getElementById('userDetailsForm');
+            const startChatBtn = document.getElementById('startChatBtn');
+            const goalOptions = document.querySelectorAll('.goal-option');
+
+            // Check if user already has data
+            const existingData = localStorage.getItem('finetalks_user_data');
+            if (existingData) {
+                const userData = JSON.parse(existingData);
+                // Check if data is recent (within 24 hours)
+                const dataAge = Date.now() - new Date(userData.timestamp).getTime();
+                if (dataAge < 24 * 60 * 60 * 1000) {
+                    // Hide modal if user has recent data
+                    modal.style.display = 'none';
+                    return;
+                }
+            }
+
+            // Show modal on page load
+            modal.style.display = 'block';
+
+            // Add visual feedback for goal selection
+            goalOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const checkbox = this.querySelector('input[type="checkbox"]');
+                    checkbox.checked = !checkbox.checked;
+                    
+                    if (checkbox.checked) {
+                        this.classList.add('selected');
+                    } else {
+                        this.classList.remove('selected');
+                    }
+                });
+            });
+
+            // Form validation
+            function validateForm() {
+                let isValid = true;
+                
+                // Clear previous errors
+                document.querySelectorAll('.error-message').forEach(error => {
+                    error.style.display = 'none';
+                });
+
+                // Validate name
+                const name = document.getElementById('userName').value.trim();
+                if (!name) {
+                    document.getElementById('nameError').style.display = 'block';
+                    isValid = false;
+                }
+
+                // Validate age
+                const age = parseInt(document.getElementById('age').value);
+                if (!age || age < 18 || age > 100) {
+                    document.getElementById('ageError').style.display = 'block';
+                    isValid = false;
+                }
+
+                // Validate income
+                const income = parseFloat(document.getElementById('income').value);
+                if (!income || income < 0) {
+                    document.getElementById('incomeError').style.display = 'block';
+                    isValid = false;
+                }
+
+                // Validate goals
+                const selectedGoals = document.querySelectorAll('input[name="goals"]:checked');
+                if (selectedGoals.length === 0) {
+                    document.getElementById('goalsError').style.display = 'block';
+                    isValid = false;
+                }
+
+                return isValid;
+            }
+
+            // Form submission
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (validateForm()) {
+                    // Show loading state
+                    startChatBtn.disabled = true;
+                    startChatBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Starting Chat...';
+                    
+                    // Store user data in localStorage
+                    const userData = {
+                        name: document.getElementById('userName').value.trim(),
+                        age: parseInt(document.getElementById('age').value),
+                        income: parseFloat(document.getElementById('income').value),
+                        goals: Array.from(document.querySelectorAll('input[name="goals"]:checked')).map(cb => cb.value),
+                        timestamp: new Date().toISOString()
+                    };
+                    
+                    localStorage.setItem('finetalks_user_data', JSON.stringify(userData));
+                    
+                    // Simulate loading delay for better UX
+                    setTimeout(() => {
+                        // Hide modal and show chat interface
+                        modal.style.display = 'none';
+                        startChatBtn.disabled = false;
+                        startChatBtn.innerHTML = '<i class="fas fa-comments"></i> Start Chat';
+                    }, 1500);
+                }
+            });
+
+            // Real-time validation
+            document.getElementById('userName').addEventListener('input', function() {
+                if (this.value.trim()) {
+                    document.getElementById('nameError').style.display = 'none';
+                }
+            });
+
+            document.getElementById('age').addEventListener('input', function() {
+                const age = parseInt(this.value);
+                if (age >= 18 && age <= 100) {
+                    document.getElementById('ageError').style.display = 'none';
+                }
+            });
+
+            document.getElementById('income').addEventListener('input', function() {
+                const income = parseFloat(this.value);
+                if (income >= 0) {
+                    document.getElementById('incomeError').style.display = 'none';
+                }
+            });
+
+            // Close modal when clicking outside (optional)
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    // Don't close modal on outside click to ensure user fills the form
+                    // modal.style.display = 'none';
+                }
+            });
+        });
+
+        // Voice Assistant JavaScript
+        class VoiceAssistant {
+            constructor() {
+                this.isListening = false;
+                this.isSpeaking = false;
+                this.recognition = null;
+                this.synthesis = window.speechSynthesis;
+                this.voices = [];
+                this.currentVoice = null;
+                this.isVoiceEnabled = false;
+                
+                this.initVoiceRecognition();
+                this.initTextToSpeech();
+                this.bindEvents();
+            }
+
+            initVoiceRecognition() {
+                if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                    this.recognition = new SpeechRecognition();
+                    
+                    this.recognition.continuous = false;
+                    this.recognition.interimResults = false;
+                    this.recognition.lang = 'en-US';
+                    
+                    this.recognition.onstart = () => {
+                        this.isListening = true;
+                        this.updateVoiceUI();
+                    };
+                    
+                    this.recognition.onresult = (event) => {
+                        const transcript = event.results[0][0].transcript;
+                        this.handleVoiceInput(transcript);
+                    };
+                    
+                    this.recognition.onerror = (event) => {
+                        console.error('Speech recognition error:', event.error);
+                        this.isListening = false;
+                        this.updateVoiceUI();
+                    };
+                    
+                    this.recognition.onend = () => {
+                        this.isListening = false;
+                        this.updateVoiceUI();
+                    };
+                } else {
+                    console.warn('Speech recognition not supported');
+                }
+            }
+
+            initTextToSpeech() {
+                this.loadVoices();
+                
+                if (speechSynthesis.onvoiceschanged !== undefined) {
+                    speechSynthesis.onvoiceschanged = () => {
+                        this.loadVoices();
+                    };
+                }
+            }
+
+            loadVoices() {
+                this.voices = this.synthesis.getVoices();
+                // Prefer English voices
+                this.currentVoice = this.voices.find(voice => 
+                    voice.lang.startsWith('en') && voice.name.includes('Google')
+                ) || this.voices.find(voice => voice.lang.startsWith('en')) || this.voices[0];
+            }
+
+            bindEvents() {
+                const voiceToggle = document.getElementById('voiceToggle');
+                const speakToggle = document.getElementById('speakToggle');
+                const voiceInput = document.getElementById('voiceInput');
+
+                if (voiceToggle) {
+                    voiceToggle.addEventListener('click', () => {
+                        this.toggleVoiceRecognition();
+                    });
+                }
+
+                if (speakToggle) {
+                    speakToggle.addEventListener('click', () => {
+                        this.toggleTextToSpeech();
+                    });
+                }
+
+                if (voiceInput) {
+                    voiceInput.addEventListener('click', () => {
+                        this.startVoiceInput();
+                    });
+                }
+            }
+
+            toggleVoiceRecognition() {
+                if (this.isListening) {
+                    this.stopVoiceRecognition();
+                } else {
+                    this.startVoiceRecognition();
+                }
+            }
+
+            startVoiceRecognition() {
+                if (this.recognition && !this.isListening) {
+                    try {
+                        this.recognition.start();
+                    } catch (error) {
+                        console.error('Error starting voice recognition:', error);
+                    }
+                }
+            }
+
+            stopVoiceRecognition() {
+                if (this.recognition && this.isListening) {
+                    this.recognition.stop();
+                }
+            }
+
+            startVoiceInput() {
+                if (this.recognition && !this.isListening) {
+                    this.startVoiceRecognition();
+                }
+            }
+
+            handleVoiceInput(transcript) {
+                const userInput = document.getElementById('userInput');
+                if (userInput) {
+                    userInput.value = transcript;
+                    // Trigger input event to update UI
+                    userInput.dispatchEvent(new Event('input', { bubbles: true }));
+                }
+                
+                // Auto-send the message
+                setTimeout(() => {
+                    const sendBtn = document.getElementById('sendBtn');
+                    if (sendBtn) {
+                        sendBtn.click();
+                    }
+                }, 500);
+            }
+
+            toggleTextToSpeech() {
+                this.isVoiceEnabled = !this.isVoiceEnabled;
+                this.updateSpeakUI();
+                
+                if (this.isVoiceEnabled) {
+                    this.speak('Voice assistant enabled. I will now speak my responses.');
+                }
+            }
+
+            speak(text) {
+                if (!this.isVoiceEnabled || this.isSpeaking) return;
+                
+                this.synthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.voice = this.currentVoice;
+                utterance.rate = 0.9;
+                utterance.pitch = 1;
+                utterance.volume = 0.8;
+                
+                utterance.onstart = () => {
+                    this.isSpeaking = true;
+                    this.updateSpeakUI();
+                };
+                
+                utterance.onend = () => {
+                    this.isSpeaking = false;
+                    this.updateSpeakUI();
+                };
+                
+                utterance.onerror = (event) => {
+                    console.error('Speech synthesis error:', event.error);
+                    this.isSpeaking = false;
+                    this.updateSpeakUI();
+                };
+                
+                this.synthesis.speak(utterance);
+            }
+
+            updateVoiceUI() {
+                const voiceToggle = document.getElementById('voiceToggle');
+                const voiceStatus = document.getElementById('voiceStatus');
+                const statusText = document.getElementById('statusText');
+                
+                if (voiceToggle) {
+                    if (this.isListening) {
+                        voiceToggle.classList.add('active');
+                        voiceToggle.innerHTML = '<i class="fas fa-microphone-slash"></i>';
+                    } else {
+                        voiceToggle.classList.remove('active');
+                        voiceToggle.innerHTML = '<i class="fas fa-microphone"></i>';
+                    }
+                }
+                
+                if (voiceStatus) {
+                    voiceStatus.style.display = this.isListening ? 'flex' : 'none';
+                }
+                
+                if (statusText) {
+                    statusText.textContent = this.isListening ? 'Listening...' : 'AI Powered • Secure';
+                }
+            }
+
+            updateSpeakUI() {
+                const speakToggle = document.getElementById('speakToggle');
+                
+                if (speakToggle) {
+                    if (this.isVoiceEnabled) {
+                        speakToggle.classList.add('active');
+                        speakToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                    } else {
+                        speakToggle.classList.remove('active');
+                        speakToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
+                    }
+                }
+            }
+
+            // Method to be called when bot responds
+            speakBotResponse(message) {
+                if (this.isVoiceEnabled) {
+                    this.speak(message);
+                }
+            }
+        }
+
+        // Initialize voice assistant
+        let voiceAssistant;
+        document.addEventListener('DOMContentLoaded', function() {
+            voiceAssistant = new VoiceAssistant();
+        });
+
+        // Function to simulate bot response and speak it
+        function simulateBotResponse(message) {
+            // Add message to chat
+            const chat = document.getElementById('chat');
+            if (chat) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message bot';
+                messageDiv.innerHTML = `
+                    <div class="bubble">
+                        <div class="message-content">${message}</div>
+                        <button class="message-voice-btn" onclick="voiceAssistant.speak('${message.replace(/'/g, "\\'")}')">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                    </div>
+                `;
+                chat.appendChild(messageDiv);
+                chat.scrollTop = chat.scrollHeight;
+            }
+            
+            // Speak the response
+            if (voiceAssistant) {
+                voiceAssistant.speakBotResponse(message);
+            }
+        }
+
+        // Enhanced send message function
+        function sendMessage() {
+            const userInput = document.getElementById('userInput');
+            const message = userInput.value.trim();
+            
+            if (message) {
+                // Add user message to chat
+                const chat = document.getElementById('chat');
+                if (chat) {
+                    const messageDiv = document.createElement('div');
+                    messageDiv.className = 'message user';
+                    messageDiv.innerHTML = `
+                        <div class="bubble">
+                            <div class="message-content">${message}</div>
+                        </div>
+                    `;
+                    chat.appendChild(messageDiv);
+                    chat.scrollTop = chat.scrollHeight;
+                }
+                
+                // Clear input
+                userInput.value = '';
+                
+                // Simulate bot response (replace with actual AI integration)
+                setTimeout(() => {
+                    const responses = [
+                        "I understand you're asking about " + message + ". Let me help you with that financial question.",
+                        "That's a great question about personal finance. Here's what I recommend...",
+                        "I can help you with " + message + ". Let me provide some insights on this topic.",
+                        "Thanks for asking about " + message + ". This is an important financial consideration."
+                    ];
+                    const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                    simulateBotResponse(randomResponse);
+                }, 1000);
+            }
+        }
+
+        // Bind send button
+        document.addEventListener('DOMContentLoaded', function() {
+            const sendBtn = document.getElementById('sendBtn');
+            const userInput = document.getElementById('userInput');
+            
+            if (sendBtn) {
+                sendBtn.addEventListener('click', sendMessage);
+            }
+            
+            if (userInput) {
+                userInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        sendMessage();
+                    }
+                });
+            }
+        });
+    </script>

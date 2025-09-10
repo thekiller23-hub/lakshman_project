@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - FineTalks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#22c55e',
+                        secondary: '#16a34a',
+                        dark: '#0f172a'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-dark to-gray-800 text-white p-4 md:p-8">
+    <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <div class="flex gap-4 justify-center mb-4">
+                <a href="welcome.html" class="inline-flex items-center gap-2 text-xl font-bold hover:text-primary transition-colors">
+                    <i class="fas fa-home text-lg"></i>
+                    <span>Home</span>
+                </a>
+                <a href="index.html" class="inline-flex items-center gap-2 text-xl font-bold hover:text-primary transition-colors">
+                    <i class="fas fa-arrow-left text-lg"></i>
+                    <span>Back to Chat</span>
+                </a>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-4">
+                Contact Us
+            </h1>
+            <p class="text-gray-300 text-lg">Get in touch with our finance experts</p>
+        </div>
+
+        <!-- Contact Form Card -->
+        <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 md:p-8 shadow-xl border border-white/10">
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Contact Form -->
+                <form id="contactForm" class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Name</label>
+                        <input type="text" required
+                            class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Email</label>
+                        <input type="email" required
+                            class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Subject</label>
+                        <input type="text" required
+                            class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Message</label>
+                        <textarea required rows="4"
+                            class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none"></textarea>
+                    </div>
+                    <button type="submit"
+                        class="w-full bg-gradient-to-r from-primary to-secondary text-white font-semibold py-4 rounded-lg hover:shadow-lg hover:scale-[1.02] transition-all duration-200">
+                        Send Message
+                    </button>
+                </form>
+
+                <!-- Contact Info -->
+                <div class="space-y-8">
+                    <div class="space-y-6">
+                        <h3 class="text-xl font-semibold">Contact Information</h3>
+                        <div class="space-y-4">
+                            <a href="mailto:support@finetalks.com" 
+                               class="flex items-center gap-4 p-4 bg-white/5 rounded-lg hover:bg-white/10 transition-all">
+                                <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-envelope text-primary"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium">Email</p>
+                                    <p class="text-sm text-gray-300">support@finetalks.com</p>
+                                </div>
+                            </a>
+                            <a href="tel:+1234567890" 
+                               class="flex items-center gap-4 p-4 bg-white/5 rounded-lg hover:bg-white/10 transition-all">
+                                <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-phone text-primary"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium">Phone</p>
+                                    <p class="text-sm text-gray-300">+1 (234) 567-890</p>
+                                </div>
+                            </a>
+                            <div class="flex items-center gap-4 p-4 bg-white/5 rounded-lg">
+                                <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-clock text-primary"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium">Working Hours</p>
+                                    <p class="text-sm text-gray-300">24/7 Support Available</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Social Links -->
+                    <div class="space-y-4">
+                        <h3 class="text-xl font-semibold">Follow Us</h3>
+                        <div class="flex gap-4">
+                            <a href="#" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-primary/20 hover:text-primary transition-all">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-primary/20 hover:text-primary transition-all">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-primary/20 hover:text-primary transition-all">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>
